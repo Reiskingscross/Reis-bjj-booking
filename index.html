@@ -22,368 +22,155 @@
     --radius: 8px;
   }
 
-  body {
-    background: var(--dark);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  body { background: var(--dark); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  header {
-    text-align: center;
-    padding: 3rem 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  header .gym-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px;
-    letter-spacing: 4px;
-    color: var(--teal);
-    margin-bottom: 0.5rem;
-  }
-
-  header h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 8vw, 5rem);
-    letter-spacing: 2px;
-    line-height: 1;
-    color: var(--white);
-  }
-
+  header { text-align: center; padding: 3rem 1.5rem 2rem; border-bottom: 1px solid var(--border); }
+  header .gym-name { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: 4px; color: var(--teal); margin-bottom: 0.5rem; }
+  header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 8vw, 5rem); letter-spacing: 2px; line-height: 1; color: var(--white); }
   header h1 span { color: var(--orange); }
   header p { margin-top: 0.75rem; color: var(--muted); font-size: 14px; }
 
-  .price-badge {
-    display: inline-block;
-    background: var(--orange);
-    color: #fff;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
-    padding: 6px 18px;
-    border-radius: 4px;
-    margin-top: 1rem;
-  }
+  .how-it-works { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .how-step { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .how-num { width: 22px; height: 22px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .how-arrow { color: var(--border); font-size: 16px; }
 
   .container { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  /* ── STEPS ── */
-  .steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .step-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    position: relative;
-  }
-
-  .step-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 16px; left: 60%;
-    width: 80%; height: 1px;
-    background: var(--border);
-    transition: background 0.3s;
-  }
-
+  /* STEPS */
+  .steps { display: flex; align-items: center; justify-content: center; margin-bottom: 2.5rem; }
+  .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+  .step-item:not(:last-child)::after { content: ''; position: absolute; top: 16px; left: 60%; width: 80%; height: 1px; background: var(--border); transition: background 0.3s; }
   .step-item.done:not(:last-child)::after { background: var(--teal); }
-
-  .step-num {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 600;
-    color: var(--muted);
-    background: var(--card);
-    position: relative; z-index: 1;
-    transition: all 0.3s;
-  }
-
+  .step-num { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--muted); background: var(--card); position: relative; z-index: 1; transition: all 0.3s; }
   .step-item.active .step-num { border-color: var(--orange); color: var(--orange); }
   .step-item.done .step-num { background: var(--teal); border-color: var(--teal); color: #fff; }
-
-  .step-label {
-    font-size: 10px; letter-spacing: 1px;
-    color: var(--muted); text-transform: uppercase; text-align: center;
-  }
-
+  .step-label { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; text-align: center; }
   .step-item.active .step-label { color: var(--white); }
 
-  /* ── PANELS ── */
-  .panel { display: none; animation: fadeUp 0.3s ease; }
-  .panel.active { display: block; }
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .panel-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem; letter-spacing: 1px;
-    margin-bottom: 0.2rem; color: var(--white);
-  }
-
+  .panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 0.2rem; color: var(--white); }
   .panel-sub { color: var(--muted); font-size: 13px; margin-bottom: 1.75rem; }
 
-  /* ── CLASS CARDS ── */
-  .class-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 1.5rem; }
+  /* CALENDAR */
+  .cal-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem; }
+  .cal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  .cal-month { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: var(--white); }
+  .cal-nav { background: none; border: 1px solid var(--border); border-radius: var(--radius); color: var(--muted); width: 32px; height: 32px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .cal-nav:hover { border-color: var(--teal); color: var(--white); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-dow { text-align: center; font-size: 11px; font-weight: 600; color: var(--muted); padding: 10px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cal-day { text-align: center; padding: 8px 4px; font-size: 13px; cursor: pointer; position: relative; transition: all 0.2s; color: var(--muted); border-radius: var(--radius); margin: 2px; }
+  .cal-day.has-class { color: var(--white); cursor: pointer; }
+  .cal-day.has-class:hover { background: rgba(168,82,33,0.15); }
+  .cal-day.selected { background: var(--orange) !important; color: #fff !important; font-weight: 600; }
+  .cal-day.today { border: 1px solid var(--teal); color: var(--teal); }
+  .cal-day.today.has-class { color: var(--teal); }
+  .cal-day.past { opacity: 0.25; cursor: not-allowed; pointer-events: none; }
+  .cal-day.empty { cursor: default; }
+  .cal-day .class-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); margin: 2px auto 0; }
+  .cal-day.selected .class-dot { background: rgba(255,255,255,0.6); }
 
-  .class-card {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.1rem;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    user-select: none;
-  }
+  /* CLASS SLOTS */
+  .slots-wrap { margin-bottom: 1.5rem; }
+  .slots-label { font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+  .slot-card { background: var(--input-bg); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; }
+  .slot-card:hover { border-color: rgba(168,82,33,0.5); }
+  .slot-card.selected { border-color: var(--orange); background: rgba(168,82,33,0.1); }
+  .slot-time { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: var(--white); }
+  .slot-type { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .type-gi { background: rgba(168,82,33,0.15); color: #c8814a; }
+  .type-kids { background: rgba(104,136,148,0.1); color: #9ab8c2; }
+  .slot-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--dark); display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.2s; flex-shrink: 0; }
+  .slot-card.selected .slot-check { background: var(--orange); border-color: var(--orange); color: #fff; }
 
-  .class-card:hover { border-color: rgba(168,82,33,0.5); }
-  .class-card.selected { border-color: var(--orange); background: rgba(168,82,33,0.1); }
+  .selected-summary { background: rgba(168,82,33,0.08); border: 1px solid rgba(168,82,33,0.25); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 1rem; display: none; }
+  .selected-summary strong { color: var(--orange); }
+  .no-class-note { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 1rem; display: none; }
 
-  .class-card .day { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; color: var(--white); }
-  .class-card .time { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-  .class-card .badge {
-    display: inline-block; font-size: 10px; font-weight: 600;
-    letter-spacing: 1px; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 20px; margin-top: 8px;
-  }
-
-  .nogi { background: rgba(104,136,148,0.15); color: var(--teal); }
-  .gi { background: rgba(168,82,33,0.15); color: #c8814a; }
-  .kids { background: rgba(104,136,148,0.1); color: #9ab8c2; }
-
-  .check-dot {
-    position: absolute; top: 10px; right: 10px;
-    width: 18px; height: 18px; border-radius: 50%;
-    border: 1.5px solid var(--border); background: var(--input-bg);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: transparent;
-    transition: all 0.2s;
-  }
-
-  .class-card.selected .check-dot { background: var(--orange); border-color: var(--orange); color: #fff; }
-
-  /* ── FIELDS ── */
+  /* FIELDS */
   .field-group { margin-bottom: 1rem; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .field-label {
-    display: block; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.5px; color: var(--muted);
-    text-transform: uppercase; margin-bottom: 6px;
-  }
-
-  input[type=text], input[type=email], input[type=tel],
-  input[type=date], select, textarea {
-    width: 100%; background: var(--input-bg);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    color: var(--white); font-family: 'DM Sans', sans-serif;
-    font-size: 14px; padding: 11px 14px;
-    outline: none; -webkit-appearance: none; transition: border-color 0.2s;
-  }
-
+  .field-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+  input[type=text], input[type=email], input[type=tel], input[type=date], select, textarea { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 11px 14px; outline: none; -webkit-appearance: none; transition: border-color 0.2s; }
   input:focus, select:focus, textarea:focus { border-color: var(--teal); }
   input[readonly] { color: var(--muted); cursor: default; }
   textarea { resize: vertical; min-height: 80px; }
   select option { background: #1e1f1b; color: var(--white); }
 
-  /* ── YES/NO RADIOS ── */
+  /* YES/NO */
   .yn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-
-  .yn-opt {
-    flex: 1; min-width: 80px;
-    display: flex; align-items: center; gap: 8px;
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 9px 14px; cursor: pointer;
-    font-size: 13px; transition: all 0.2s;
-    user-select: none;
-  }
-
+  .yn-opt { flex: 1; min-width: 80px; display: flex; align-items: center; gap: 8px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 9px 14px; cursor: pointer; font-size: 13px; transition: all 0.2s; user-select: none; }
   .yn-opt:hover { border-color: rgba(104,136,148,0.4); }
   .yn-opt.checked { border-color: var(--teal); background: rgba(104,136,148,0.1); color: var(--teal); }
-
-  .yn-dot {
-    width: 14px; height: 14px; border-radius: 50%;
-    border: 1px solid var(--border); flex-shrink: 0; transition: all 0.2s;
-  }
-
+  .yn-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--border); flex-shrink: 0; transition: all 0.2s; }
   .yn-opt.checked .yn-dot { background: var(--teal); border-color: var(--teal); }
 
-  /* ── DIVIDERS / HEADINGS ── */
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+  .sub-heading { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 1px; color: var(--teal); margin-bottom: 0.75rem; }
 
-  .sub-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem; letter-spacing: 1px;
-    color: var(--teal); margin-bottom: 0.75rem;
-  }
-
-  /* ── INFO / MINOR / GDPR BOXES ── */
-  .info-box {
-    background: rgba(104,136,148,0.08);
-    border: 1px solid rgba(104,136,148,0.2);
-    border-radius: var(--radius);
-    padding: 12px 16px; font-size: 13px;
-    color: var(--muted); margin-bottom: 1rem; line-height: 1.6;
-  }
-
+  .info-box { background: rgba(104,136,148,0.08); border: 1px solid rgba(104,136,148,0.2); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
   .info-box strong { color: var(--white); }
 
-  .minor-box {
-    background: rgba(168,82,33,0.06);
-    border: 1px solid rgba(168,82,33,0.2);
-    border-radius: var(--radius);
-    padding: 1.25rem; margin-top: 1rem;
-    display: none;
-  }
-
+  .minor-box { background: rgba(168,82,33,0.06); border: 1px solid rgba(168,82,33,0.2); border-radius: var(--radius); padding: 1.25rem; margin-top: 1rem; display: none; }
   .minor-box .sub-heading { color: var(--orange); }
 
-  /* ── WAIVER ── */
-  .waiver-scroll {
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem; font-size: 12px;
-    color: var(--muted); line-height: 1.7;
-    max-height: 200px; overflow-y: auto; margin-bottom: 1rem;
-  }
-
+  .waiver-scroll { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; font-size: 12px; color: var(--muted); line-height: 1.7; max-height: 200px; overflow-y: auto; margin-bottom: 1rem; }
   .waiver-scroll::-webkit-scrollbar { width: 4px; }
   .waiver-scroll::-webkit-scrollbar-track { background: var(--dark); }
   .waiver-scroll::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
   .waiver-scroll h4 { color: var(--white); font-size: 13px; margin-bottom: 0.5rem; }
   .waiver-scroll p { margin-bottom: 0.75rem; }
 
-  /* ── CHECKBOXES ── */
-  .check-row {
-    display: flex; align-items: flex-start;
-    gap: 10px; margin-bottom: 0.75rem;
-  }
-
-  .check-row input[type=checkbox] {
-    width: 18px; height: 18px;
-    accent-color: var(--teal); flex-shrink: 0;
-    margin-top: 2px; cursor: pointer;
-  }
-
+  .check-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 0.75rem; }
+  .check-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--teal); flex-shrink: 0; margin-top: 2px; cursor: pointer; }
   .check-row span { font-size: 13px; color: var(--muted); }
   .check-row span strong { color: var(--white); }
   .check-row a { color: var(--teal); }
 
-  /* ── GDPR BOX ── */
-  .gdpr-box {
-    background: rgba(104,136,148,0.06);
-    border: 1px solid rgba(104,136,148,0.2);
-    border-radius: var(--radius);
-    padding: 1.25rem; margin-bottom: 1rem;
-  }
-
+  .gdpr-box { background: rgba(104,136,148,0.06); border: 1px solid rgba(104,136,148,0.2); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
   .gdpr-box p { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 0.6rem; }
   .gdpr-box p:last-child { margin-bottom: 0; }
   .gdpr-box p strong { color: var(--white); }
   .gdpr-box a { color: var(--teal); }
 
-  /* ── PAYMENT ── */
-  .pay-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem; margin-bottom: 1.25rem;
-  }
+  .review-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.25rem; }
+  .review-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; gap: 12px; }
+  .review-row:last-child { border-bottom: none; }
+  .review-label { color: var(--muted); flex-shrink: 0; }
+  .review-val { color: var(--white); text-align: right; }
 
-  .pay-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 1rem; margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
+  .approval-notice { background: rgba(168,82,33,0.08); border: 1px solid rgba(168,82,33,0.25); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.25rem; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .approval-notice strong { color: var(--orange); }
 
-  .pay-row .plabel { font-size: 13px; color: var(--muted); }
-  .pay-row .pclass { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .pay-row .pamount { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--orange); letter-spacing: 1px; }
-
-  .stripe-note { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: block; width: 100%; padding: 14px;
-    background: var(--orange); color: #fff; border: none;
-    border-radius: var(--radius);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem; letter-spacing: 2px;
-    cursor: pointer; transition: background 0.2s, transform 0.1s;
-    margin-top: 1.5rem; text-align: center;
-  }
-
+  .btn { display: block; width: 100%; padding: 14px; background: var(--orange); color: #fff; border: none; border-radius: var(--radius); font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; cursor: pointer; transition: background 0.2s, transform 0.1s; margin-top: 1.5rem; text-align: center; }
   .btn:hover { background: var(--orange-dark); }
   .btn:active { transform: scale(0.99); }
   .btn:disabled { background: #555; cursor: not-allowed; }
 
-  .btn-back {
-    display: block; width: 100%; padding: 12px;
-    background: transparent; color: var(--muted);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    font-family: 'DM Sans', sans-serif; font-size: 13px;
-    cursor: pointer; margin-top: 10px; transition: all 0.2s;
-  }
-
+  .btn-back { display: block; width: 100%; padding: 12px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
   .btn-back:hover { border-color: var(--teal); color: var(--white); }
 
-  /* ── ERROR ── */
-  .err {
-    background: rgba(168,82,33,0.1);
-    border: 1px solid rgba(168,82,33,0.35);
-    border-radius: var(--radius);
-    color: #c8814a; font-size: 13px;
-    padding: 10px 14px; margin-top: 0.75rem; display: none;
-  }
+  .err { background: rgba(168,82,33,0.1); border: 1px solid rgba(168,82,33,0.35); border-radius: var(--radius); color: #c8814a; font-size: 13px; padding: 10px 14px; margin-top: 0.75rem; display: none; }
 
-  /* ── SUCCESS ── */
   .success-wrap { text-align: center; padding: 3rem 1rem; }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(104,136,148,0.15); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 32px; color: var(--teal); }
+  .success-wrap h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 0.5rem; }
+  .success-wrap .success-sub { color: var(--muted); font-size: 14px; line-height: 1.8; max-width: 480px; margin: 0 auto; }
 
-  .success-icon {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: rgba(104,136,148,0.15); border: 2px solid var(--teal);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.5rem; font-size: 28px; color: var(--teal);
-  }
-
-  .success-wrap h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 0.5rem;
-  }
-
-  .success-wrap p { color: var(--muted); font-size: 14px; line-height: 1.7; }
-
-  .recap {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1rem 1.25rem;
-    margin: 1.5rem auto; max-width: 420px;
-    text-align: left; font-size: 13px;
-  }
-
-  .recap-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
-  .recap-row:last-child { border-bottom: none; }
-  .recap-label { color: var(--muted); }
-  .recap-val { color: var(--white); font-weight: 500; text-align: right; max-width: 60%; }
+  .next-steps { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin: 1.75rem auto; max-width: 480px; text-align: left; }
+  .next-step-item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+  .next-step-item:last-child { border-bottom: none; }
+  .next-step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .next-step-item span strong { color: var(--white); }
 
   @media (max-width: 480px) {
-    .class-grid { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
     .step-label { display: none; }
+    .how-arrow { display: none; }
   }
 </style>
 </head>
@@ -392,67 +179,68 @@
 <header>
   <div class="gym-name">Reis BJJ · Kings Cross · London</div>
   <h1>Book Your <span>Trial</span></h1>
-  <p>Choose a class, complete your details, and we'll see you on the mats.</p>
-  <div class="price-badge">Trial Class · £15</div>
+  <p>Complete the form and we'll be in touch within 24 hours to confirm your spot.</p>
+  <div class="how-it-works">
+    <div class="how-step"><div class="how-num">1</div> Fill in the form</div>
+    <div class="how-arrow">→</div>
+    <div class="how-step"><div class="how-num">2</div> We review &amp; approve</div>
+    <div class="how-arrow">→</div>
+    <div class="how-step"><div class="how-num">3</div> You pay &amp; confirm</div>
+    <div class="how-arrow">→</div>
+    <div class="how-step"><div class="how-num">4</div> See you on the mats!</div>
+  </div>
 </header>
 
 <div class="container">
 
-  <!-- STEP INDICATORS -->
   <div class="steps" id="steps">
     <div class="step-item active" id="s1"><div class="step-num">1</div><div class="step-label">Class</div></div>
     <div class="step-item" id="s2"><div class="step-num">2</div><div class="step-label">Details</div></div>
     <div class="step-item" id="s3"><div class="step-num">3</div><div class="step-label">Health</div></div>
     <div class="step-item" id="s4"><div class="step-num">4</div><div class="step-label">Waiver</div></div>
-    <div class="step-item" id="s5"><div class="step-num">5</div><div class="step-label">Payment</div></div>
+    <div class="step-item" id="s5"><div class="step-num">5</div><div class="step-label">Review</div></div>
   </div>
 
-  <!-- ══ STEP 1: CLASS ══ -->
+  <!-- ══ STEP 1: CLASS + CALENDAR ══ -->
   <div class="panel active" id="panel1">
-    <div class="panel-title">Pick Your Class</div>
-    <div class="panel-sub">Select the session you'd like to trial. All levels welcome.</div>
+    <div class="panel-title">Pick a Date &amp; Class</div>
+    <div class="panel-sub">Select a date on the calendar to see available sessions. Classes run on Tuesdays, Wednesdays, Thursdays, and Saturdays.</div>
 
-    <div class="class-grid">
-      <div class="class-card" onclick="pickClass(this,'Tuesday 6pm','No-Gi')">
-        <div class="check-dot">✓</div>
-        <div class="day">Tuesday</div><div class="time">6:00 – 7:00 pm</div>
-        <span class="badge nogi">No-Gi</span>
+    <div class="cal-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="changeMonth(-1)">&#8592;</button>
+        <div class="cal-month" id="cal-month-label"></div>
+        <button class="cal-nav" onclick="changeMonth(1)">&#8594;</button>
       </div>
-      <div class="class-card" onclick="pickClass(this,'Tuesday 7pm','Gi')">
-        <div class="check-dot">✓</div>
-        <div class="day">Tuesday</div><div class="time">7:00 – 8:00 pm</div>
-        <span class="badge gi">Gi</span>
+      <div class="cal-grid">
+        <div class="cal-dow">Mon</div>
+        <div class="cal-dow">Tue</div>
+        <div class="cal-dow">Wed</div>
+        <div class="cal-dow">Thu</div>
+        <div class="cal-dow">Fri</div>
+        <div class="cal-dow">Sat</div>
+        <div class="cal-dow">Sun</div>
       </div>
-      <div class="class-card" onclick="pickClass(this,'Wednesday 5pm','Kids BJJ — Ages 5–13')">
-        <div class="check-dot">✓</div>
-        <div class="day">Wednesday</div><div class="time">5:00 – 5:45 pm</div>
-        <span class="badge kids">Kids · Ages 5–13</span>
-      </div>
-      <div class="class-card" onclick="pickClass(this,'Thursday 6pm','No-Gi')">
-        <div class="check-dot">✓</div>
-        <div class="day">Thursday</div><div class="time">6:00 – 7:00 pm</div>
-        <span class="badge nogi">No-Gi</span>
-      </div>
-      <div class="class-card" onclick="pickClass(this,'Thursday 7pm','Gi')">
-        <div class="check-dot">✓</div>
-        <div class="day">Thursday</div><div class="time">7:00 – 8:00 pm</div>
-        <span class="badge gi">Gi</span>
-      </div>
-      <div class="class-card" onclick="pickClass(this,'Saturday 9am','Gi')">
-        <div class="check-dot">✓</div>
-        <div class="day">Saturday</div><div class="time">9:00 – 10:00 am</div>
-        <span class="badge gi">Gi</span>
-      </div>
+      <div class="cal-grid" id="cal-days" style="padding: 4px 8px 8px;"></div>
     </div>
 
-    <div class="err" id="e1">Please select a class to continue.</div>
+    <div class="no-class-note" id="no-class-note">No classes on this day. Please select a Tuesday, Wednesday, Thursday, or Saturday.</div>
+
+    <div class="slots-wrap" id="slots-wrap" style="display:none;">
+      <div class="slots-label" id="slots-date-label"></div>
+      <div id="slots-list"></div>
+    </div>
+
+    <div class="selected-summary" id="selected-summary"></div>
+
+    <div class="err" id="e1">Please select a date and class to continue.</div>
     <button class="btn" onclick="next(1)">Continue →</button>
   </div>
 
   <!-- ══ STEP 2: DETAILS ══ -->
   <div class="panel" id="panel2">
     <div class="panel-title">Your Details</div>
-    <div class="panel-sub">Tell us about the participant.</div>
+    <div class="panel-sub">Tell us about the participant so we can get you set up.</div>
 
     <div class="field-group">
       <div class="field-label">Is the participant under 18? *</div>
@@ -466,21 +254,11 @@
     <div class="sub-heading">Participant Details</div>
 
     <div class="field-row">
-      <div class="field-group">
-        <label class="field-label" for="f_first">First Name *</label>
-        <input type="text" id="f_first" placeholder="First name">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="f_last">Last Name *</label>
-        <input type="text" id="f_last" placeholder="Last name">
-      </div>
+      <div class="field-group"><label class="field-label" for="f_first">First Name *</label><input type="text" id="f_first" placeholder="First name"></div>
+      <div class="field-group"><label class="field-label" for="f_last">Last Name *</label><input type="text" id="f_last" placeholder="Last name"></div>
     </div>
-
     <div class="field-row">
-      <div class="field-group">
-        <label class="field-label" for="f_dob">Date of Birth *</label>
-        <input type="date" id="f_dob">
-      </div>
+      <div class="field-group"><label class="field-label" for="f_dob">Date of Birth *</label><input type="date" id="f_dob"></div>
       <div class="field-group">
         <label class="field-label" for="f_exp">Experience Level *</label>
         <select id="f_exp">
@@ -493,69 +271,31 @@
       </div>
     </div>
 
-    <div class="field-group" id="adult-contact">
-      <div class="field-group">
-        <label class="field-label" for="f_email">Email Address *</label>
-        <input type="email" id="f_email" placeholder="you@example.com">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="f_phone">Phone Number *</label>
-        <input type="tel" id="f_phone" placeholder="+44 7700 000000">
-      </div>
+    <div id="adult-contact">
+      <div class="field-group"><label class="field-label" for="f_email">Email Address *</label><input type="email" id="f_email" placeholder="you@example.com"></div>
+      <div class="field-group"><label class="field-label" for="f_phone">Phone Number *</label><input type="tel" id="f_phone" placeholder="+44 7700 000000"></div>
     </div>
 
-    <!-- MINOR / GUARDIAN SECTION -->
     <div class="minor-box" id="minor-box">
       <div class="sub-heading">Parent / Guardian Details</div>
-      <div class="info-box">
-        As the participant is under 18, a parent or legal guardian must provide their details and sign the waiver on the child's behalf, in accordance with UK law.
-      </div>
+      <div class="info-box">As the participant is under 18, a parent or legal guardian must provide their details and sign the waiver on the child's behalf, in accordance with UK law.</div>
       <div class="field-row">
-        <div class="field-group">
-          <label class="field-label" for="g_first">Guardian First Name *</label>
-          <input type="text" id="g_first" placeholder="First name">
-        </div>
-        <div class="field-group">
-          <label class="field-label" for="g_last">Guardian Last Name *</label>
-          <input type="text" id="g_last" placeholder="Last name">
-        </div>
+        <div class="field-group"><label class="field-label" for="g_first">Guardian First Name *</label><input type="text" id="g_first" placeholder="First name"></div>
+        <div class="field-group"><label class="field-label" for="g_last">Guardian Last Name *</label><input type="text" id="g_last" placeholder="Last name"></div>
       </div>
       <div class="field-group">
         <label class="field-label" for="g_rel">Relationship to Participant *</label>
-        <select id="g_rel">
-          <option value="">Select...</option>
-          <option>Parent</option>
-          <option>Legal Guardian</option>
-          <option>Other</option>
-        </select>
+        <select id="g_rel"><option value="">Select...</option><option>Parent</option><option>Legal Guardian</option><option>Other</option></select>
       </div>
-      <div class="field-group">
-        <label class="field-label" for="g_email">Guardian Email *</label>
-        <input type="email" id="g_email" placeholder="parent@example.com">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="g_phone">Guardian Phone *</label>
-        <input type="tel" id="g_phone" placeholder="+44 7700 000000">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="g_dob">Guardian Date of Birth *</label>
-        <input type="date" id="g_dob">
-      </div>
+      <div class="field-group"><label class="field-label" for="g_email">Guardian Email *</label><input type="email" id="g_email" placeholder="parent@example.com"></div>
+      <div class="field-group"><label class="field-label" for="g_phone">Guardian Phone *</label><input type="tel" id="g_phone" placeholder="+44 7700 000000"></div>
+      <div class="field-group"><label class="field-label" for="g_dob">Guardian Date of Birth *</label><input type="date" id="g_dob"></div>
     </div>
 
     <hr class="divider">
     <div class="field-group">
       <label class="field-label" for="f_ref">How did you hear about us?</label>
-      <select id="f_ref">
-        <option value="">Select...</option>
-        <option>Google Search</option>
-        <option>Google Maps</option>
-        <option>Instagram</option>
-        <option>Facebook</option>
-        <option>Friend / Word of mouth</option>
-        <option>Walking past</option>
-        <option>Other</option>
-      </select>
+      <select id="f_ref"><option value="">Select...</option><option>Google Search</option><option>Google Maps</option><option>Instagram</option><option>Facebook</option><option>Friend / Word of mouth</option><option>Walking past</option><option>Other</option></select>
     </div>
 
     <div class="err" id="e2">Please fill in all required fields.</div>
@@ -577,10 +317,7 @@
         <div class="yn-opt" onclick="setYN(this,'injuries','No'); hide('inj-detail')"><div class="yn-dot"></div> No</div>
       </div>
     </div>
-    <div class="field-group" id="inj-detail" style="display:none;">
-      <label class="field-label" for="h_inj">Please describe</label>
-      <textarea id="h_inj" placeholder="e.g. knee ligament issue, lower back pain..."></textarea>
-    </div>
+    <div class="field-group" id="inj-detail" style="display:none;"><label class="field-label" for="h_inj">Please describe</label><textarea id="h_inj" placeholder="e.g. knee ligament issue, lower back pain..."></textarea></div>
 
     <div class="field-group">
       <div class="field-label">Heart conditions or high blood pressure? *</div>
@@ -615,29 +352,17 @@
       </div>
     </div>
 
-    <div class="field-group">
-      <label class="field-label" for="h_notes">Any additional health information?</label>
-      <textarea id="h_notes" placeholder="Optional — e.g. allergies, previous surgeries, learning needs..."></textarea>
-    </div>
+    <div class="field-group"><label class="field-label" for="h_notes">Any additional health information?</label><textarea id="h_notes" placeholder="Optional — e.g. allergies, previous surgeries, learning needs..."></textarea></div>
 
     <hr class="divider">
     <div class="sub-heading">Emergency Contact</div>
-    <div class="info-box" id="em-minor-note" style="display:none;"><strong>Note:</strong> For minors, the parent/guardian above is the primary emergency contact. Please provide a secondary contact below if available.</div>
+    <div class="info-box" id="em-minor-note" style="display:none;"><strong>Note:</strong> For minors, the parent/guardian above is the primary emergency contact. Please provide a secondary contact below.</div>
 
     <div class="field-row">
-      <div class="field-group">
-        <label class="field-label" for="em_name" id="em-name-lbl">Emergency Contact Name *</label>
-        <input type="text" id="em_name" placeholder="Full name">
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="em_rel">Relationship *</label>
-        <input type="text" id="em_rel" placeholder="e.g. Partner, Parent">
-      </div>
+      <div class="field-group"><label class="field-label" for="em_name" id="em-name-lbl">Emergency Contact Name *</label><input type="text" id="em_name" placeholder="Full name"></div>
+      <div class="field-group"><label class="field-label" for="em_rel">Relationship *</label><input type="text" id="em_rel" placeholder="e.g. Partner, Parent"></div>
     </div>
-    <div class="field-group">
-      <label class="field-label" for="em_phone">Emergency Contact Phone *</label>
-      <input type="tel" id="em_phone" placeholder="+44 7700 000000">
-    </div>
+    <div class="field-group"><label class="field-label" for="em_phone">Emergency Contact Phone *</label><input type="tel" id="em_phone" placeholder="+44 7700 000000"></div>
 
     <div class="err" id="e3">Please answer all health questions and provide emergency contact details.</div>
     <button class="btn" onclick="next(3)">Continue →</button>
@@ -651,12 +376,12 @@
 
     <div class="waiver-scroll">
       <h4>Reis BJJ Kings Cross — Participant Waiver &amp; Release of Liability</h4>
-      <p>I, the undersigned (or parent/guardian signing on behalf of a minor), wish to participate in (or consent to the participation of a minor in) Brazilian Jiu-Jitsu classes offered by Reis BJJ Kings Cross ("the Academy"), Vernon Hall, Vernon Square, London.</p>
-      <p><strong>Acknowledgement of Risk:</strong> Brazilian Jiu-Jitsu is a full-contact martial art involving physical contact, grappling, and submission techniques. Risks include bruising, sprains, strains, fractures, and other injuries. I voluntarily accept these risks on behalf of myself or the minor in my care.</p>
-      <p><strong>Parental / Guardian Consent (Minors):</strong> If signing on behalf of a minor (under 18), I confirm I am the parent or legal guardian and have full authority to provide this consent. I accept all terms on the minor's behalf.</p>
-      <p><strong>Health Declaration:</strong> I confirm the participant is in adequate physical health to participate and that all health information provided is accurate. I agree to inform the Academy of any changes to health status.</p>
-      <p><strong>Release of Liability:</strong> I hereby release Reis BJJ Kings Cross, its coaches, staff, and representatives from any claims, damages, or losses arising from participation, except in cases of gross negligence or wilful misconduct.</p>
-      <p><strong>Medical Treatment Consent:</strong> I authorise the Academy to seek emergency medical treatment on behalf of the participant if needed, and accept responsibility for any associated costs.</p>
+      <p>I, the undersigned (or parent/guardian signing on behalf of a minor), wish to participate in Brazilian Jiu-Jitsu classes offered by Reis BJJ Kings Cross ("the Academy"), Vernon Hall, Vernon Square, London.</p>
+      <p><strong>Acknowledgement of Risk:</strong> BJJ is a full-contact martial art involving physical contact, grappling, and submission techniques. Risks include bruising, sprains, strains, fractures, and other injuries. I voluntarily accept these risks.</p>
+      <p><strong>Parental / Guardian Consent (Minors):</strong> If signing on behalf of a minor, I confirm I am the parent or legal guardian and have full authority to provide this consent.</p>
+      <p><strong>Health Declaration:</strong> I confirm the participant is in adequate physical health and all health information provided is accurate.</p>
+      <p><strong>Release of Liability:</strong> I hereby release Reis BJJ Kings Cross from any claims arising from participation, except in cases of gross negligence or wilful misconduct.</p>
+      <p><strong>Medical Treatment Consent:</strong> I authorise the Academy to seek emergency medical treatment on behalf of the participant if needed.</p>
       <p><strong>Photography &amp; Media:</strong> I grant permission for Reis BJJ Kings Cross to use photographs or video footage taken during training for promotional purposes, unless I notify the Academy otherwise in writing.</p>
       <p><strong>Code of Conduct:</strong> I agree the participant will train safely and respectfully. Unsafe behaviour may result in removal from the Academy.</p>
       <p>This waiver is governed by the laws of England and Wales.</p>
@@ -672,9 +397,9 @@
 
     <div class="gdpr-box">
       <div class="sub-heading" style="margin-top:0;">Data Protection &amp; GDPR</div>
-      <p><strong>Why we collect your data:</strong> To process your booking, ensure participant safety, and meet our legal obligations as a sports club.</p>
-      <p><strong>What we collect:</strong> Name, date of birth, contact details, health information, and emergency contact details. Health data is special category data under UK GDPR and is processed only with your explicit consent.</p>
-      <p><strong>Third parties:</strong> Your data is processed by Formspree (email delivery) and Stripe (payment). Both are GDPR-compliant processors.</p>
+      <p><strong>Why we collect your data:</strong> To process your booking request, ensure participant safety, and meet our legal obligations as a sports club.</p>
+      <p><strong>What we collect:</strong> Name, date of birth, contact details, health information, and emergency contact details. Health data is special category data under UK GDPR, processed only with your explicit consent.</p>
+      <p><strong>Third parties:</strong> Your data is processed by Formspree (email delivery) and Stripe (payment if approved). Both are GDPR-compliant processors.</p>
       <p><strong>Retention:</strong> Data is kept for up to 3 years, or 7 years for waiver records. Contact <a href="mailto:info@reisbjj.co.uk">info@reisbjj.co.uk</a> to request deletion at any time.</p>
     </div>
 
@@ -683,83 +408,192 @@
 
     <hr class="divider">
 
-    <div class="field-group">
-      <label class="field-label" for="f_sig" id="sig-label">Full Name — Electronic Signature *</label>
-      <input type="text" id="f_sig" placeholder="Type your full name to sign">
-    </div>
-    <div class="field-group">
-      <label class="field-label">Date</label>
-      <input type="text" id="f_sigdate" readonly>
-    </div>
+    <div class="field-group"><label class="field-label" for="f_sig" id="sig-label">Full Name — Electronic Signature *</label><input type="text" id="f_sig" placeholder="Type your full name to sign"></div>
+    <div class="field-group"><label class="field-label">Date</label><input type="text" id="f_sigdate" readonly></div>
 
     <div class="err" id="e4">Please tick all boxes, give GDPR consent, and provide your full name as a signature.</div>
-    <button class="btn" onclick="next(4)">Continue to Payment →</button>
+    <button class="btn" onclick="next(4)">Review &amp; Submit →</button>
     <button class="btn-back" onclick="back(3)">← Back</button>
   </div>
 
-  <!-- ══ STEP 5: PAYMENT ══ -->
+  <!-- ══ STEP 5: REVIEW ══ -->
   <div class="panel" id="panel5">
-    <div class="panel-title">Payment</div>
-    <div class="panel-sub">One last step — your details will be sent to us and you'll be redirected to pay securely via Stripe.</div>
+    <div class="panel-title">Review &amp; Submit</div>
+    <div class="panel-sub">Please check your details before submitting your trial request.</div>
 
-    <div class="pay-box">
-      <div class="pay-row">
-        <div>
-          <div class="plabel">Trial class</div>
-          <div class="pclass" id="pay-class-label">—</div>
-        </div>
-        <div class="pamount">£15.00</div>
-      </div>
-      <div class="stripe-note">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Payments secured by Stripe. We never store your card details.
-      </div>
-    </div>
+    <div class="approval-notice"><strong>How this works:</strong> Submitting sends your details to Coach Antonio for review. We'll be in touch within <strong>24 hours</strong> via <strong>email and WhatsApp</strong> to confirm your spot and send a payment link for the £15 trial fee. No payment is taken today.</div>
+
+    <div class="review-box" id="review-summary"></div>
 
     <div class="err" id="e5">Something went wrong. Please try again or contact us on WhatsApp.</div>
-    <button class="btn" id="pay-btn" onclick="submitAndPay()">Pay £15 &amp; Confirm Booking →</button>
+    <button class="btn" id="submit-btn" onclick="submitForm()">Submit Trial Request →</button>
     <button class="btn-back" onclick="back(4)">← Back</button>
   </div>
 
   <!-- ══ SUCCESS ══ -->
   <div class="panel" id="panel6">
     <div class="success-wrap">
-      <div class="success-icon">✓</div>
-      <h2>You're Booked!</h2>
-      <p>Welcome to Reis BJJ. We can't wait to see you on the mats.</p>
-      <div class="recap" id="recap"></div>
-      <p style="margin-top:1rem;">Questions? Message us on <a href="https://wa.me/447939813919" style="color:var(--orange);">WhatsApp</a> or email <a href="mailto:info@reisbjj.co.uk" style="color:var(--orange);">info@reisbjj.co.uk</a></p>
+      <div class="success-icon">&#8987;</div>
+      <h2>Request Received!</h2>
+      <p class="success-sub">Thank you for applying to train at Reis BJJ Kings Cross. Coach Antonio will review your request and be in touch within <strong style="color:var(--white);">24 hours</strong> via email and WhatsApp.</p>
+      <div class="next-steps">
+        <div class="next-step-item"><div class="next-step-num">1</div><span><strong>Check your email &amp; WhatsApp</strong> — we'll send your confirmation and payment link once approved.</span></div>
+        <div class="next-step-item"><div class="next-step-num">2</div><span><strong>Complete your £15 payment</strong> via the link we send to secure your spot.</span></div>
+        <div class="next-step-item"><div class="next-step-num">3</div><span><strong>Show up and train!</strong> Wear comfortable clothes — no gi required for your first session.</span></div>
+      </div>
+      <p class="success-sub">Questions? Message us on <a href="https://wa.me/447939813919" style="color:var(--orange);">WhatsApp</a> or email <a href="mailto:info@reisbjj.co.uk" style="color:var(--orange);">info@reisbjj.co.uk</a></p>
     </div>
   </div>
 
 </div>
 
 <script>
+  // ── SCHEDULE ──
+  // Classes: 2=Tue, 3=Wed, 4=Thu, 6=Sat (JS getDay() - but we display Mon-first)
+  var SCHEDULE = {
+    2: [ // Tuesday
+      { time: '7:00 – 8:00 pm', type: 'Gi', label: 'Gi' }
+    ],
+    3: [ // Wednesday
+      { time: '5:00 – 5:45 pm', type: 'Kids BJJ', label: 'kids' }
+    ],
+    4: [ // Thursday
+      { time: '7:00 – 8:00 pm', type: 'Gi', label: 'Gi' }
+    ],
+    6: [ // Saturday
+      { time: '9:00 – 10:00 am', type: 'Gi', label: 'Gi' }
+    ]
+  };
+
+  var CLASS_DAYS = [2, 3, 4, 6]; // Tue, Wed, Thu, Sat
+
   // ── STATE ──
-  var sel = { class: null, type: null, isMinor: null };
+  var cal = { year: 0, month: 0 };
+  var sel = { date: null, dateStr: null, time: null, type: null };
   var health = {};
   var isMinor = false;
+  var today = new Date();
+  today.setHours(0,0,0,0);
 
-  // ── CLASS SELECTION ──
-  function pickClass(el, day, type) {
-    document.querySelectorAll('.class-card').forEach(function(c) { c.classList.remove('selected'); });
-    el.classList.add('selected');
-    sel.class = day; sel.type = type;
+  // ── CALENDAR ──
+  function initCal() {
+    var d = new Date();
+    cal.year = d.getFullYear();
+    cal.month = d.getMonth();
+    renderCal();
   }
 
-  // ── YES/NO OPTIONS ──
+  function changeMonth(dir) {
+    cal.month += dir;
+    if (cal.month > 11) { cal.month = 0; cal.year++; }
+    if (cal.month < 0) { cal.month = 11; cal.year--; }
+    renderCal();
+  }
+
+  function renderCal() {
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('cal-month-label').textContent = months[cal.month] + ' ' + cal.year;
+
+    var first = new Date(cal.year, cal.month, 1);
+    var daysInMonth = new Date(cal.year, cal.month + 1, 0).getDate();
+
+    // Monday-first: Mon=0, Tue=1, ... Sun=6
+    var startDow = (first.getDay() + 6) % 7;
+
+    var html = '';
+    for (var i = 0; i < startDow; i++) {
+      html += '<div class="cal-day empty"></div>';
+    }
+
+    for (var d = 1; d <= daysInMonth; d++) {
+      var date = new Date(cal.year, cal.month, d);
+      var dow = date.getDay(); // 0=Sun, 1=Mon, ... 6=Sat
+      var hasClass = CLASS_DAYS.indexOf(dow) !== -1;
+      var isPast = date < today;
+      var isToday = date.getTime() === today.getTime();
+      var isSelected = sel.date && date.getTime() === sel.date.getTime();
+
+      var cls = 'cal-day';
+      if (hasClass && !isPast) cls += ' has-class';
+      if (isPast) cls += ' past';
+      if (isToday) cls += ' today';
+      if (isSelected) cls += ' selected';
+
+      var dot = hasClass && !isPast ? '<div class="class-dot"></div>' : '';
+      html += '<div class="' + cls + '" onclick="selectDay(' + cal.year + ',' + cal.month + ',' + d + ')">' + d + dot + '</div>';
+    }
+
+    document.getElementById('cal-days').innerHTML = html;
+  }
+
+  function selectDay(year, month, day) {
+    var date = new Date(year, month, day);
+    if (date < today) return;
+
+    var dow = date.getDay();
+    var hasClass = CLASS_DAYS.indexOf(dow) !== -1;
+
+    sel.date = date;
+    sel.dateStr = date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    // Reset slot selection
+    sel.time = null; sel.type = null;
+    document.getElementById('selected-summary').style.display = 'none';
+    document.getElementById('selected-summary').innerHTML = '';
+
+    renderCal();
+
+    if (!hasClass) {
+      document.getElementById('no-class-note').style.display = 'block';
+      document.getElementById('slots-wrap').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('no-class-note').style.display = 'none';
+    renderSlots(dow, sel.dateStr);
+  }
+
+  function renderSlots(dow, dateStr) {
+    var slots = SCHEDULE[dow];
+    document.getElementById('slots-date-label').textContent = dateStr;
+
+    var html = '';
+    slots.forEach(function(s, i) {
+      var typeClass = s.label === 'kids' ? 'type-kids' : 'type-gi';
+      var typeName = s.label === 'kids' ? 'Kids · Ages 5–13' : 'Gi';
+      html += '<div class="slot-card" onclick="selectSlot(this,' + i + ')" data-time="' + s.time + '" data-type="' + s.type + '">';
+      html += '<div><div class="slot-time">' + s.time + '</div><span class="slot-type ' + typeClass + '">' + typeName + '</span></div>';
+      html += '<div class="slot-check">&#10003;</div>';
+      html += '</div>';
+    });
+
+    document.getElementById('slots-list').innerHTML = html;
+    document.getElementById('slots-wrap').style.display = 'block';
+  }
+
+  function selectSlot(el, idx) {
+    document.querySelectorAll('.slot-card').forEach(function(c) { c.classList.remove('selected'); });
+    el.classList.add('selected');
+    sel.time = el.dataset.time;
+    sel.type = el.dataset.type;
+
+    var summary = document.getElementById('selected-summary');
+    summary.innerHTML = '<strong>Selected:</strong> ' + sel.dateStr + ' &nbsp;·&nbsp; ' + sel.time + ' &nbsp;·&nbsp; ' + sel.type;
+    summary.style.display = 'block';
+  }
+
+  // ── FORM ──
   function setYN(el, key, val) {
     var group = el.parentElement;
     group.querySelectorAll('.yn-opt').forEach(function(o) { o.classList.remove('checked'); });
     el.classList.add('checked');
     health[key] = val;
-    if (key === 'isMinor') { sel.isMinor = val; isMinor = (val === 'Yes'); }
+    if (key === 'isMinor') isMinor = (val === 'Yes');
   }
 
   function show(id) { document.getElementById(id).style.display = 'block'; }
   function hide(id) { document.getElementById(id).style.display = 'none'; }
 
-  // ── MINOR TOGGLE ──
   function showMinor(yes) {
     document.getElementById('minor-box').style.display = yes ? 'block' : 'none';
     document.getElementById('adult-contact').style.display = yes ? 'none' : 'block';
@@ -767,11 +601,10 @@
     document.getElementById('em-minor-note').style.display = yes ? 'block' : 'none';
     document.getElementById('em-name-lbl').textContent = yes ? 'Secondary Emergency Contact Name *' : 'Emergency Contact Name *';
     document.getElementById('sig-label').textContent = yes ? 'Parent / Guardian Full Name — Electronic Signature *' : 'Full Name — Electronic Signature *';
-    if (yes) { document.getElementById('preg-wrap').style.display = 'none'; health['pregnant'] = 'N/A'; }
-    else { document.getElementById('preg-wrap').style.display = 'block'; if (health['pregnant'] === 'N/A') delete health['pregnant']; }
+    if (yes) { hide('preg-wrap'); health['pregnant'] = 'N/A'; }
+    else { show('preg-wrap'); if (health['pregnant'] === 'N/A') delete health['pregnant']; }
   }
 
-  // ── STEP NAVIGATION ──
   function updateSteps(n) {
     for (var i = 1; i <= 5; i++) {
       var s = document.getElementById('s' + i);
@@ -788,95 +621,114 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function hideErrs() {
-    document.querySelectorAll('.err').forEach(function(e) { e.style.display = 'none'; });
-  }
-
+  function hideErrs() { document.querySelectorAll('.err').forEach(function(e) { e.style.display = 'none'; }); }
   function back(n) { hideErrs(); showPanel(n); }
+  function v(id) { return document.getElementById(id).value.trim(); }
+  function c(id) { return document.getElementById(id).checked; }
 
   function next(step) {
     hideErrs();
 
     if (step === 1) {
-      if (!sel.class) { document.getElementById('e1').style.display = 'block'; return; }
+      if (!sel.date || !sel.time || !sel.type) { document.getElementById('e1').style.display = 'block'; return; }
     }
-
     if (step === 2) {
-      if (!sel.isMinor) { document.getElementById('e2').style.display = 'block'; return; }
-      var fn = v('f_first'), ln = v('f_last'), dob = v('f_dob'), exp = v('f_exp');
-      if (!fn || !ln || !dob || !exp) { document.getElementById('e2').style.display = 'block'; return; }
+      if (!health['isMinor'] || !v('f_first') || !v('f_last') || !v('f_dob') || !v('f_exp')) { document.getElementById('e2').style.display = 'block'; return; }
       if (isMinor) {
-        if (!v('g_first') || !v('g_last') || !v('g_rel') || !v('g_email') || !v('g_phone') || !v('g_dob')) {
-          document.getElementById('e2').style.display = 'block'; return;
-        }
+        if (!v('g_first') || !v('g_last') || !v('g_rel') || !v('g_email') || !v('g_phone') || !v('g_dob')) { document.getElementById('e2').style.display = 'block'; return; }
       } else {
         if (!v('f_email') || !v('f_phone')) { document.getElementById('e2').style.display = 'block'; return; }
       }
     }
-
     if (step === 3) {
       var req = ['injuries','heart','asthma','pregnant','meds'];
-      var ok = req.every(function(k) { return health[k]; });
-      if (!ok || !v('em_name') || !v('em_rel') || !v('em_phone')) {
-        document.getElementById('e3').style.display = 'block'; return;
-      }
+      if (!req.every(function(k) { return health[k]; }) || !v('em_name') || !v('em_rel') || !v('em_phone')) { document.getElementById('e3').style.display = 'block'; return; }
     }
-
     if (step === 4) {
-      var w1 = c('w1'), w2 = c('w2'), w3 = c('w3'), w4 = c('w4');
-      var w5 = isMinor ? c('w5') : true;
-      var g1 = c('g1'), g2 = c('g2');
-      var sig = v('f_sig');
-      if (!w1||!w2||!w3||!w4||!w5||!g1||!g2||!sig) {
-        document.getElementById('e4').style.display = 'block'; return;
-      }
-      document.getElementById('pay-class-label').textContent = sel.class + ' · ' + sel.type;
+      var w5ok = isMinor ? c('w5') : true;
+      if (!c('w1')||!c('w2')||!c('w3')||!c('w4')||!w5ok||!c('g1')||!c('g2')||!v('f_sig')) { document.getElementById('e4').style.display = 'block'; return; }
     }
+    if (step === 5) { buildReview(); }
 
     showPanel(step + 1);
   }
 
-  function v(id) { return document.getElementById(id).value.trim(); }
-  function c(id) { return document.getElementById(id).checked; }
+  function buildReview() {
+    var contactEmail = isMinor ? v('g_email') : v('f_email');
+    var contactPhone = isMinor ? v('g_phone') : v('f_phone');
 
-  // ── SUBMIT & PAY ──
-  async function submitAndPay() {
-    var btn = document.getElementById('pay-btn');
+    var rows = [
+      ['Date', sel.dateStr],
+      ['Time', sel.time],
+      ['Class', sel.type],
+      ['Participant', v('f_first') + ' ' + v('f_last')],
+      ['Date of Birth', v('f_dob')],
+      ['Experience', v('f_exp')],
+      ['Contact Email', contactEmail],
+      ['Contact Phone', contactPhone],
+      ['Under 18', isMinor ? 'Yes' : 'No'],
+    ];
+
+    if (isMinor) rows.push(['Guardian', v('g_first') + ' ' + v('g_last') + ' (' + v('g_rel') + ')']);
+
+    rows.push(
+      ['Injuries', health['injuries'] || '—'],
+      ['Heart Conditions', health['heart'] || '—'],
+      ['Asthma', health['asthma'] || '—'],
+      ['Medication', health['meds'] || '—'],
+      ['Emergency Contact', v('em_name') + ' — ' + v('em_phone')],
+      ['Signed By', v('f_sig')],
+      ['Waiver Date', v('f_sigdate')]
+    );
+
+    document.getElementById('review-summary').innerHTML = rows.map(function(r) {
+      return '<div class="review-row"><span class="review-label">' + r[0] + '</span><span class="review-val">' + r[1] + '</span></div>';
+    }).join('');
+  }
+
+  async function submitForm() {
+    var btn = document.getElementById('submit-btn');
     btn.disabled = true;
-    btn.textContent = 'Sending your details...';
+    btn.textContent = 'Submitting...';
     document.getElementById('e5').style.display = 'none';
 
     var contactEmail = isMinor ? v('g_email') : v('f_email');
     var contactPhone = isMinor ? v('g_phone') : v('f_phone');
 
     var payload = {
-      '_subject': 'New Trial Booking — Reis BJJ Kings Cross',
-      'Class': sel.class + ' — ' + sel.type,
+      '_subject': '⚡ New Trial Request — ' + v('f_first') + ' ' + v('f_last') + ' — ' + sel.dateStr,
+      '--- BOOKING REQUEST ---': '---',
+      'Requested Date': sel.dateStr,
+      'Requested Time': sel.time,
+      'Class Type': sel.type,
       'Participant Name': v('f_first') + ' ' + v('f_last'),
-      'Participant DOB': v('f_dob'),
+      'Date of Birth': v('f_dob'),
       'Is Minor': isMinor ? 'Yes' : 'No',
       'Experience': v('f_exp'),
       'Contact Email': contactEmail,
       'Contact Phone': contactPhone,
       'How Found Us': v('f_ref') || 'Not specified',
+      '--- GUARDIAN ---': isMinor ? '---' : 'N/A',
       'Guardian Name': isMinor ? v('g_first') + ' ' + v('g_last') : 'N/A',
       'Guardian Relationship': isMinor ? v('g_rel') : 'N/A',
       'Guardian Email': isMinor ? v('g_email') : 'N/A',
       'Guardian Phone': isMinor ? v('g_phone') : 'N/A',
       'Guardian DOB': isMinor ? v('g_dob') : 'N/A',
+      '--- HEALTH ---': '---',
       'Injuries': health['injuries'] || 'Not answered',
       'Injury Details': v('h_inj') || 'N/A',
-      'Heart Conditions': health['heart'] || 'Not answered',
+      'Heart / Blood Pressure': health['heart'] || 'Not answered',
       'Asthma': health['asthma'] || 'Not answered',
       'Pregnant': health['pregnant'] || 'N/A',
       'Medication': health['meds'] || 'Not answered',
       'Health Notes': v('h_notes') || 'None',
-      'Emergency Contact': v('em_name') + ' (' + v('em_rel') + ') ' + v('em_phone'),
-      'Waiver Signed By': v('f_sig'),
-      'Waiver Date': v('f_sigdate'),
+      'Emergency Contact': v('em_name') + ' (' + v('em_rel') + ') — ' + v('em_phone'),
+      '--- WAIVER ---': '---',
+      'Signed By': v('f_sig'),
+      'Signature Date': v('f_sigdate'),
       'Parental Consent': isMinor ? 'Yes' : 'N/A',
       'GDPR Consent': 'Yes',
-      'Payment': '£15.00 — Stripe Payment Link'
+      '--- ACTION REQUIRED ---': 'Reply to ' + contactEmail + ' / WhatsApp ' + contactPhone + ' within 24hrs to approve and send payment link.'
     };
 
     try {
@@ -885,22 +737,19 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
-
       if (res.ok) {
-        btn.textContent = 'Redirecting to payment...';
-        window.location.href = 'https://buy.stripe.com/00weV51NUdHA1CegaZcZa00';
-      } else {
-        throw new Error('Formspree error');
-      }
+        showPanel(6);
+        document.getElementById('steps').style.display = 'none';
+      } else { throw new Error(); }
     } catch(e) {
       btn.disabled = false;
-      btn.textContent = 'Pay £15 & Confirm Booking →';
+      btn.textContent = 'Submit Trial Request →';
       document.getElementById('e5').style.display = 'block';
     }
   }
 
-  // ── INIT ──
   document.getElementById('f_sigdate').value = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  initCal();
 </script>
 </body>
 </html>
