@@ -186,7 +186,7 @@
     <div class="how-arrow">→</div>
     <div class="how-step"><div class="how-num">2</div> We review &amp; approve</div>
     <div class="how-arrow">→</div>
-    <div class="how-step"><div class="how-num">3</div> You pay &amp; confirm</div>
+    <div class="how-step"><div class="how-num">3</div> We confirm your spot</div>
     <div class="how-arrow">→</div>
     <div class="how-step"><div class="how-num">4</div> See you on the mats!</div>
   </div>
@@ -400,7 +400,7 @@
       <div class="sub-heading" style="margin-top:0;">Data Protection &amp; GDPR</div>
       <p><strong>Why we collect your data:</strong> To process your booking request, ensure participant safety, and meet our legal obligations as a sports club.</p>
       <p><strong>What we collect:</strong> Name, date of birth, contact details, health information, and emergency contact details. Health data is special category data under UK GDPR, processed only with your explicit consent.</p>
-      <p><strong>Third parties:</strong> Your data is processed by Formspree (email delivery) and Stripe (payment if approved). Both are GDPR-compliant processors.</p>
+      <p><strong>Third parties:</strong> Your data is processed by Formspree (email delivery). Formspree is a GDPR-compliant processor.</p>
       <p><strong>Retention:</strong> Data is kept for up to 3 years, or 7 years for waiver records. Contact <a href="mailto:info@reisbjj.co.uk">info@reisbjj.co.uk</a> to request deletion at any time.</p>
     </div>
 
@@ -422,7 +422,7 @@
     <div class="panel-title">Review &amp; Submit</div>
     <div class="panel-sub">Please check your details before submitting your trial request.</div>
 
-    <div class="approval-notice"><strong>How this works:</strong> Submitting sends your details to Coach Antonio for review. We'll be in touch within <strong>24 hours</strong> via <strong>email and WhatsApp</strong> to confirm your spot and send a payment link for the £15 trial fee. No payment is taken today.</div>
+    <div class="approval-notice"><strong>How this works:</strong> Submitting this form sends your details to Coach Antonio for review. We'll be in touch within <strong>24 hours</strong> via <strong>email and WhatsApp</strong> to confirm your spot. Your first trial class is completely <strong style="color:var(--orange);">free</strong>.</div>
 
     <div class="review-box" id="review-summary"></div>
 
@@ -438,9 +438,9 @@
       <h2>Request Received!</h2>
       <p class="success-sub">Thank you for applying to train at Reis BJJ Kings Cross. Coach Antonio will review your request and be in touch within <strong style="color:var(--white);">24 hours</strong> via email and WhatsApp.</p>
       <div class="next-steps">
-        <div class="next-step-item"><div class="next-step-num">1</div><span><strong>Check your email &amp; WhatsApp</strong> — we'll send your confirmation and payment link once approved.</span></div>
-        <div class="next-step-item"><div class="next-step-num">2</div><span><strong>Complete your £15 payment</strong> via the link we send to secure your spot.</span></div>
-        <div class="next-step-item"><div class="next-step-num">3</div><span><strong>Show up and train!</strong> Wear comfortable clothes — no gi required for your first session.</span></div>
+        <div class="next-step-item"><div class="next-step-num">1</div><span><strong>Check your email &amp; WhatsApp</strong> — we'll send your confirmation once approved.</span></div>
+        <div class="next-step-item"><div class="next-step-num">2</div><span><strong>Show up and train!</strong> Your first trial class is completely free.</span></div>
+        <div class="next-step-item"><div class="next-step-num">3</div><span><strong>Love it?</strong> Ask Coach Antonio about membership options after your session.</span></div>
       </div>
       <p class="success-sub">Questions? Message us on <a href="https://wa.me/447939813919" style="color:var(--orange);">WhatsApp</a> or email <a href="mailto:info@reisbjj.co.uk" style="color:var(--orange);">info@reisbjj.co.uk</a></p>
     </div>
@@ -730,7 +730,7 @@
       'Signature Date': v('f_sigdate'),
       'Parental Consent': isMinor ? 'Yes' : 'N/A',
       'GDPR Consent': 'Yes',
-      '--- ACTION REQUIRED ---': 'Reply to ' + contactEmail + ' / WhatsApp ' + contactPhone + ' within 24hrs to approve and send payment link.'
+      '--- ACTION REQUIRED ---': 'Reply to ' + contactEmail + ' / WhatsApp ' + contactPhone + ' within 24hrs to approve their free trial.'
     };
 
     try {
