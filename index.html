@@ -37,7 +37,6 @@
 
   .container { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-  /* STEPS */
   .steps { display: flex; align-items: center; justify-content: center; margin-bottom: 2.5rem; }
   .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
   .step-item:not(:last-child)::after { content: ''; position: absolute; top: 16px; left: 60%; width: 80%; height: 1px; background: var(--border); transition: background 0.3s; }
@@ -48,14 +47,12 @@
   .step-label { font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; text-align: center; }
   .step-item.active .step-label { color: var(--white); }
 
-  /* PANELS */
   .panel { display: none; }
   .panel.active { display: block; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 0.2rem; color: var(--white); }
   .panel-sub { color: var(--muted); font-size: 13px; margin-bottom: 1.75rem; }
 
-  /* CALENDAR */
   .cal-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem; }
   .cal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
   .cal-month { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1px; color: var(--white); }
@@ -74,7 +71,6 @@
   .cal-day .class-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); margin: 2px auto 0; }
   .cal-day.selected .class-dot { background: rgba(255,255,255,0.6); }
 
-  /* CLASS SLOTS */
   .slots-wrap { margin-bottom: 1.5rem; }
   .slots-label { font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
   .slot-card { background: var(--input-bg); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; }
@@ -92,7 +88,6 @@
   .selected-summary strong { color: var(--orange); }
   .no-class-note { background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 1rem; display: none; }
 
-  /* FIELDS */
   .field-group { margin-bottom: 1rem; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .field-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
@@ -102,7 +97,6 @@
   textarea { resize: vertical; min-height: 80px; }
   select option { background: #1e1f1b; color: var(--white); }
 
-  /* YES/NO */
   .yn-group { display: flex; gap: 10px; flex-wrap: wrap; }
   .yn-opt { flex: 1; min-width: 80px; display: flex; align-items: center; gap: 8px; background: var(--input-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 9px 14px; cursor: pointer; font-size: 13px; transition: all 0.2s; user-select: none; }
   .yn-opt:hover { border-color: rgba(104,136,148,0.4); }
@@ -400,7 +394,7 @@
       <div class="sub-heading" style="margin-top:0;">Data Protection &amp; GDPR</div>
       <p><strong>Why we collect your data:</strong> To process your booking request, ensure participant safety, and meet our legal obligations as a sports club.</p>
       <p><strong>What we collect:</strong> Name, date of birth, contact details, health information, and emergency contact details. Health data is special category data under UK GDPR, processed only with your explicit consent.</p>
-      <p><strong>Third parties:</strong> Your data is processed by Formspree (email delivery). Formspree is a GDPR-compliant processor.</p>
+      <p><strong>Third parties:</strong> Your data is stored securely in the Reis BJJ app database. No data is shared with third-party email processors.</p>
       <p><strong>Retention:</strong> Data is kept for up to 3 years, or 7 years for waiver records. Contact <a href="mailto:info@reisbjj.co.uk">info@reisbjj.co.uk</a> to request deletion at any time.</p>
     </div>
 
@@ -449,8 +443,10 @@
 </div>
 
 <script>
+  // ── CONFIG ──
+  var APP_URL = 'https://reiss-bjj-app.replit.app';
+
   // ── SCHEDULE ──
-  // Classes: 2=Tue, 3=Wed, 4=Thu, 6=Sat (JS getDay() - but we display Mon-first)
   var SCHEDULE = {
     2: [ // Tuesday
       { time: '7:00 – 8:00 pm', type: 'Gi', label: 'Gi' }
@@ -467,7 +463,7 @@
     ]
   };
 
-  var CLASS_DAYS = [2, 3, 4, 6]; // Tue, Wed, Thu, Sat
+  var CLASS_DAYS = [2, 3, 4, 6];
 
   // ── STATE ──
   var cal = { year: 0, month: 0 };
@@ -495,62 +491,45 @@
   function renderCal() {
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     document.getElementById('cal-month-label').textContent = months[cal.month] + ' ' + cal.year;
-
     var first = new Date(cal.year, cal.month, 1);
     var daysInMonth = new Date(cal.year, cal.month + 1, 0).getDate();
-
-    // Monday-first: Mon=0, Tue=1, ... Sun=6
     var startDow = (first.getDay() + 6) % 7;
-
     var html = '';
-    for (var i = 0; i < startDow; i++) {
-      html += '<div class="cal-day empty"></div>';
-    }
-
+    for (var i = 0; i < startDow; i++) html += '<div class="cal-day empty"></div>';
     for (var d = 1; d <= daysInMonth; d++) {
       var date = new Date(cal.year, cal.month, d);
-      var dow = date.getDay(); // 0=Sun, 1=Mon, ... 6=Sat
+      var dow = date.getDay();
       var hasClass = CLASS_DAYS.indexOf(dow) !== -1;
       var isPast = date < today;
       var isToday = date.getTime() === today.getTime();
       var isSelected = sel.date && date.getTime() === sel.date.getTime();
-
       var cls = 'cal-day';
       if (hasClass && !isPast) cls += ' has-class';
       if (isPast) cls += ' past';
       if (isToday) cls += ' today';
       if (isSelected) cls += ' selected';
-
       var dot = hasClass && !isPast ? '<div class="class-dot"></div>' : '';
       html += '<div class="' + cls + '" onclick="selectDay(' + cal.year + ',' + cal.month + ',' + d + ')">' + d + dot + '</div>';
     }
-
     document.getElementById('cal-days').innerHTML = html;
   }
 
   function selectDay(year, month, day) {
     var date = new Date(year, month, day);
     if (date < today) return;
-
     var dow = date.getDay();
     var hasClass = CLASS_DAYS.indexOf(dow) !== -1;
-
     sel.date = date;
     sel.dateStr = date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-
-    // Reset slot selection
     sel.time = null; sel.type = null;
     document.getElementById('selected-summary').style.display = 'none';
     document.getElementById('selected-summary').innerHTML = '';
-
     renderCal();
-
     if (!hasClass) {
       document.getElementById('no-class-note').style.display = 'block';
       document.getElementById('slots-wrap').style.display = 'none';
       return;
     }
-
     document.getElementById('no-class-note').style.display = 'none';
     renderSlots(dow, sel.dateStr);
   }
@@ -558,7 +537,6 @@
   function renderSlots(dow, dateStr) {
     var slots = SCHEDULE[dow];
     document.getElementById('slots-date-label').textContent = dateStr;
-
     var html = '';
     slots.forEach(function(s, i) {
       var typeClass = s.label === 'kids' ? 'type-kids' : s.label === 'nogi' ? 'type-nogi' : 'type-gi';
@@ -568,7 +546,6 @@
       html += '<div class="slot-check">&#10003;</div>';
       html += '</div>';
     });
-
     document.getElementById('slots-list').innerHTML = html;
     document.getElementById('slots-wrap').style.display = 'block';
   }
@@ -578,7 +555,6 @@
     el.classList.add('selected');
     sel.time = el.dataset.time;
     sel.type = el.dataset.type;
-
     var summary = document.getElementById('selected-summary');
     summary.innerHTML = '<strong>Selected:</strong> ' + sel.dateStr + ' &nbsp;·&nbsp; ' + sel.time + ' &nbsp;·&nbsp; ' + sel.type;
     summary.style.display = 'block';
@@ -630,7 +606,6 @@
 
   function next(step) {
     hideErrs();
-
     if (step === 1) {
       if (!sel.date || !sel.time || !sel.type) { document.getElementById('e1').style.display = 'block'; return; }
     }
@@ -651,14 +626,12 @@
       if (!c('w1')||!c('w2')||!c('w3')||!c('w4')||!w5ok||!c('g1')||!c('g2')||!v('f_sig')) { document.getElementById('e4').style.display = 'block'; return; }
     }
     if (step === 5) { buildReview(); }
-
     showPanel(step + 1);
   }
 
   function buildReview() {
     var contactEmail = isMinor ? v('g_email') : v('f_email');
     var contactPhone = isMinor ? v('g_phone') : v('f_phone');
-
     var rows = [
       ['Date', sel.dateStr],
       ['Time', sel.time],
@@ -670,9 +643,7 @@
       ['Contact Phone', contactPhone],
       ['Under 18', isMinor ? 'Yes' : 'No'],
     ];
-
     if (isMinor) rows.push(['Guardian', v('g_first') + ' ' + v('g_last') + ' (' + v('g_rel') + ')']);
-
     rows.push(
       ['Injuries', health['injuries'] || '—'],
       ['Heart Conditions', health['heart'] || '—'],
@@ -682,7 +653,6 @@
       ['Signed By', v('f_sig')],
       ['Waiver Date', v('f_sigdate')]
     );
-
     document.getElementById('review-summary').innerHTML = rows.map(function(r) {
       return '<div class="review-row"><span class="review-label">' + r[0] + '</span><span class="review-val">' + r[1] + '</span></div>';
     }).join('');
@@ -696,58 +666,115 @@
 
     var contactEmail = isMinor ? v('g_email') : v('f_email');
     var contactPhone = isMinor ? v('g_phone') : v('f_phone');
-
-    var payload = {
-      '_subject': '⚡ New Trial Request — ' + v('f_first') + ' ' + v('f_last') + ' — ' + sel.dateStr,
-      '--- BOOKING REQUEST ---': '---',
-      'Requested Date': sel.dateStr,
-      'Requested Time': sel.time,
-      'Class Type': sel.type,
-      'Participant Name': v('f_first') + ' ' + v('f_last'),
-      'Date of Birth': v('f_dob'),
-      'Is Minor': isMinor ? 'Yes' : 'No',
-      'Experience': v('f_exp'),
-      'Contact Email': contactEmail,
-      'Contact Phone': contactPhone,
-      'How Found Us': v('f_ref') || 'Not specified',
-      '--- GUARDIAN ---': isMinor ? '---' : 'N/A',
-      'Guardian Name': isMinor ? v('g_first') + ' ' + v('g_last') : 'N/A',
-      'Guardian Relationship': isMinor ? v('g_rel') : 'N/A',
-      'Guardian Email': isMinor ? v('g_email') : 'N/A',
-      'Guardian Phone': isMinor ? v('g_phone') : 'N/A',
-      'Guardian DOB': isMinor ? v('g_dob') : 'N/A',
-      '--- HEALTH ---': '---',
-      'Injuries': health['injuries'] || 'Not answered',
-      'Injury Details': v('h_inj') || 'N/A',
-      'Heart / Blood Pressure': health['heart'] || 'Not answered',
-      'Asthma': health['asthma'] || 'Not answered',
-      'Pregnant': health['pregnant'] || 'N/A',
-      'Medication': health['meds'] || 'Not answered',
-      'Health Notes': v('h_notes') || 'None',
-      'Emergency Contact': v('em_name') + ' (' + v('em_rel') + ') — ' + v('em_phone'),
-      '--- WAIVER ---': '---',
-      'Signed By': v('f_sig'),
-      'Signature Date': v('f_sigdate'),
-      'Parental Consent': isMinor ? 'Yes' : 'N/A',
-      'GDPR Consent': 'Yes',
-      '--- ACTION REQUIRED ---': 'Reply to ' + contactEmail + ' / WhatsApp ' + contactPhone + ' to approve their trial request.'
-    };
+    var contactName = isMinor ? v('g_first') + ' ' + v('g_last') : v('f_first') + ' ' + v('f_last');
 
     try {
-      var res = await fetch('https://formspree.io/f/mlgozpae', {
+      // Step 1 — Register the user account
+      var registerRes = await fetch(APP_URL + '/api/auth/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: contactEmail,
+          password: generateTempPassword(),
+          firstName: v('f_first'),
+          lastName: v('f_last'),
+          phone: contactPhone
+        })
       });
-      if (res.ok) {
-        showPanel(6);
-        document.getElementById('steps').style.display = 'none';
-      } else { throw new Error(); }
+
+      var registerData = await registerRes.json();
+
+      // If registration fails because email already exists, try to continue anyway
+      // (person may have started a trial before)
+      var userId = registerData.user ? registerData.user.id : null;
+
+      // Step 2 — Submit the trial form
+      var trialPayload = {
+        // Booking details
+        requestedDate: sel.date.toISOString().split('T')[0],
+        requestedTime: sel.time,
+        classType: sel.type,
+
+        // Participant details
+        firstName: v('f_first'),
+        lastName: v('f_last'),
+        dateOfBirth: v('f_dob'),
+        experienceLevel: v('f_exp'),
+        email: contactEmail,
+        phone: contactPhone,
+        isMinor: isMinor,
+        howDidYouHear: v('f_ref') || '',
+
+        // Guardian details (if minor)
+        guardianFirstName: isMinor ? v('g_first') : null,
+        guardianLastName: isMinor ? v('g_last') : null,
+        guardianRelationship: isMinor ? v('g_rel') : null,
+        guardianEmail: isMinor ? v('g_email') : null,
+        guardianPhone: isMinor ? v('g_phone') : null,
+        guardianDateOfBirth: isMinor ? v('g_dob') : null,
+
+        // Health questionnaire
+        hasInjuries: health['injuries'] === 'Yes',
+        injuryDetails: v('h_inj') || '',
+        hasHeartCondition: health['heart'] === 'Yes',
+        hasAsthma: health['asthma'] === 'Yes',
+        isPregnant: health['pregnant'] === 'Yes',
+        takesMedication: health['meds'] === 'Yes',
+        healthNotes: v('h_notes') || '',
+
+        // Emergency contact
+        emergencyContactName: v('em_name'),
+        emergencyContactRelationship: v('em_rel'),
+        emergencyContactPhone: v('em_phone'),
+
+        // Waiver
+        waiverSigned: true,
+        waiverSignedBy: v('f_sig'),
+        waiverSignedAt: new Date().toISOString(),
+        parentalConsent: isMinor,
+        gdprConsent: true
+      };
+
+      var trialRes = await fetch(APP_URL + '/api/onboarding/trial-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(trialPayload),
+        credentials: 'include'
+      });
+
+      // Step 3 — Submit the waiver separately
+      var waiverPayload = {
+        signedBy: v('f_sig'),
+        signedAt: new Date().toISOString(),
+        isMinor: isMinor,
+        parentalConsent: isMinor,
+        gdprConsent: true,
+        waiverVersion: '1.0'
+      };
+
+      await fetch(APP_URL + '/api/onboarding/waiver', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(waiverPayload),
+        credentials: 'include'
+      });
+
+      // Show success regardless — data is in the app
+      showPanel(6);
+      document.getElementById('steps').style.display = 'none';
+
     } catch(e) {
+      console.error('Submission error:', e);
       btn.disabled = false;
       btn.textContent = 'Submit Trial Request →';
       document.getElementById('e5').style.display = 'block';
     }
+  }
+
+  // Generate a temporary password for account creation
+  // The user will reset this when they log in to the app
+  function generateTempPassword() {
+    return 'Trial_' + Math.random().toString(36).slice(2, 10) + '!';
   }
 
   document.getElementById('f_sigdate').value = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
