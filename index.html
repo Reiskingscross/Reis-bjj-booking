@@ -659,125 +659,64 @@
   }
 
   async function submitForm() {
-    var btn = document.getElementById('submit-btn');
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
-    document.getElementById('e5').style.display = 'none';
+      var btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      document.getElementById('e5').style.display = 'none';
 
-    var contactEmail = isMinor ? v('g_email') : v('f_email');
-    var contactPhone = isMinor ? v('g_phone') : v('f_phone');
-    var contactName = isMinor ? v('g_first') + ' ' + v('g_last') : v('f_first') + ' ' + v('f_last');
+      var contactEmail = isMinor ? v('g_email') : v('f_email');
+      var contactPhone = isMinor ? v('g_phone') : v('f_phone');
 
-    try {
-      // Step 1 — Register the user account
-      var registerRes = await fetch(APP_URL + '/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: contactEmail,
-          password: generateTempPassword(),
-          firstName: v('f_first'),
-          lastName: v('f_last'),
-          phone: contactPhone
-        })
-      });
+      // Build medical conditions string from health questionnaire
+      var medicalParts = [];
+      if (health['heart'] === 'Yes') medicalParts.push('Heart condition');
+      if (health['asthma'] === 'Yes') medicalParts.push('Asthma');
+      if (health['pregnant'] === 'Yes') medicalParts.push('Pregnant');
+      if (health['meds'] === 'Yes') medicalParts.push('Takes medication');
+      if (v('h_notes')) medicalParts.push(v('h_notes'));
+      var medicalConditions = medicalParts.join('; ');
 
-      var registerData = await registerRes.json();
+      var injuryDisclosure = health['injuries'] === 'Yes' ? (v('h_inj') || 'Yes — details not provided') : '';
 
-      // If registration fails because email already exists, try to continue anyway
-      // (person may have started a trial before)
-      var userId = registerData.user ? registerData.user.id : null;
+      try {
+        var res = await fetch(APP_URL + '/api/public/trial', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: v('f_first') + ' ' + v('f_last'),
+            email: contactEmail,
+            phone: contactPhone,
+            dob: v('f_dob'),
+            isChild: isMinor,
+            guardianName: isMinor ? v('g_first') + ' ' + v('g_last') : undefined,
+            guardianRelationship: isMinor ? v('g_rel') : undefined,
+            guardianPhone: isMinor ? v('g_phone') : undefined,
+            guardianEmail: isMinor ? v('g_email') : undefined,
+            guardianConsent: isMinor ? true : undefined,
+            medicalConditions: medicalConditions,
+            injuryDisclosure: injuryDisclosure,
+            emergencyContactName: v('em_name'),
+            emergencyContactPhone: v('em_phone')
+          })
+        });
 
-      // Step 2 — Submit the trial form
-      var trialPayload = {
-        // Booking details
-        requestedDate: sel.date.toISOString().split('T')[0],
-        requestedTime: sel.time,
-        classType: sel.type,
+        // 409 = email already exists, treat as success (account already created)
+        if (!res.ok && res.status !== 409) {
+          throw new Error('Server error: ' + res.status);
+        }
 
-        // Participant details
-        firstName: v('f_first'),
-        lastName: v('f_last'),
-        dateOfBirth: v('f_dob'),
-        experienceLevel: v('f_exp'),
-        email: contactEmail,
-        phone: contactPhone,
-        isMinor: isMinor,
-        howDidYouHear: v('f_ref') || '',
+        showPanel(6);
+        document.getElementById('steps').style.display = 'none';
 
-        // Guardian details (if minor)
-        guardianFirstName: isMinor ? v('g_first') : null,
-        guardianLastName: isMinor ? v('g_last') : null,
-        guardianRelationship: isMinor ? v('g_rel') : null,
-        guardianEmail: isMinor ? v('g_email') : null,
-        guardianPhone: isMinor ? v('g_phone') : null,
-        guardianDateOfBirth: isMinor ? v('g_dob') : null,
-
-        // Health questionnaire
-        hasInjuries: health['injuries'] === 'Yes',
-        injuryDetails: v('h_inj') || '',
-        hasHeartCondition: health['heart'] === 'Yes',
-        hasAsthma: health['asthma'] === 'Yes',
-        isPregnant: health['pregnant'] === 'Yes',
-        takesMedication: health['meds'] === 'Yes',
-        healthNotes: v('h_notes') || '',
-
-        // Emergency contact
-        emergencyContactName: v('em_name'),
-        emergencyContactRelationship: v('em_rel'),
-        emergencyContactPhone: v('em_phone'),
-
-        // Waiver
-        waiverSigned: true,
-        waiverSignedBy: v('f_sig'),
-        waiverSignedAt: new Date().toISOString(),
-        parentalConsent: isMinor,
-        gdprConsent: true
-      };
-
-      var trialRes = await fetch(APP_URL + '/api/onboarding/trial-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(trialPayload),
-        credentials: 'include'
-      });
-
-      // Step 3 — Submit the waiver separately
-      var waiverPayload = {
-        signedBy: v('f_sig'),
-        signedAt: new Date().toISOString(),
-        isMinor: isMinor,
-        parentalConsent: isMinor,
-        gdprConsent: true,
-        waiverVersion: '1.0'
-      };
-
-      await fetch(APP_URL + '/api/onboarding/waiver', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(waiverPayload),
-        credentials: 'include'
-      });
-
-      // Show success regardless — data is in the app
-      showPanel(6);
-      document.getElementById('steps').style.display = 'none';
-
-    } catch(e) {
-      console.error('Submission error:', e);
-      btn.disabled = false;
-      btn.textContent = 'Submit Trial Request →';
-      document.getElementById('e5').style.display = 'block';
+      } catch(e) {
+        console.error('Submission error:', e);
+        btn.disabled = false;
+        btn.textContent = 'Submit Trial Request →';
+        document.getElementById('e5').style.display = 'block';
+      }
     }
-  }
 
-  // Generate a temporary password for account creation
-  // The user will reset this when they log in to the app
-  function generateTempPassword() {
-    return 'Trial_' + Math.random().toString(36).slice(2, 10) + '!';
-  }
-
-  document.getElementById('f_sigdate').value = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('f_sigdate').value = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   initCal();
 </script>
 </body>
