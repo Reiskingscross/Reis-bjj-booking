@@ -700,9 +700,19 @@
           })
         });
 
-        // 409 = email already exists, treat as success (account already created)
-        if (!res.ok && res.status !== 409) {
-          throw new Error('Server error: ' + res.status);
+        var resData = await res.json();
+
+        if (res.status === 409) {
+          btn.disabled = false;
+          btn.textContent = 'Submit Trial Request →';
+          var errEl = document.getElementById('e5');
+          errEl.textContent = resData.message || 'An account with this email already exists.';
+          errEl.style.display = 'block';
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error(resData.message || 'Server error: ' + res.status);
         }
 
         showPanel(6);
