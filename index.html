@@ -601,7 +601,7 @@
 
   function hideErrs() { document.querySelectorAll('.err').forEach(function(e) { e.style.display = 'none'; }); }
   function back(n) { hideErrs(); showPanel(n); }
-  function v(id) { return document.getElementById(id).value.trim(); }
+  function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
   function c(id) { return document.getElementById(id).checked; }
 
   function next(step) {
@@ -731,7 +731,9 @@
         console.error('Submission error:', e);
         btn.disabled = false;
         btn.textContent = 'Submit Trial Request →';
-        document.getElementById('e5').style.display = 'block';
+        var errEl = document.getElementById('e5');
+        errEl.textContent = 'Something went wrong: ' + (e.message || 'Please try again or contact us on WhatsApp.');
+        errEl.style.display = 'block';
       }
     }
 
