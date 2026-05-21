@@ -687,6 +687,7 @@
             email: contactEmail,
             phone: contactPhone,
             dob: v('f_dob'),
+            address: v('f_addr') || '',
             isChild: isMinor,
             guardianName: isMinor ? v('g_first') + ' ' + v('g_last') : undefined,
             guardianRelationship: isMinor ? v('g_rel') : undefined,
@@ -696,7 +697,15 @@
             medicalConditions: medicalConditions,
             injuryDisclosure: injuryDisclosure,
             emergencyContactName: v('em_name'),
-            emergencyContactPhone: v('em_phone')
+            emergencyContactPhone: v('em_phone'),
+            assumptionOfRisk: document.getElementById('w1').checked,
+            releaseOfLiability: document.getElementById('w2').checked,
+            healthConsent: document.getElementById('w3').checked,
+            medicalConsent: document.getElementById('w4').checked,
+            parentalConsent: isMinor ? document.getElementById('w5').checked : undefined,
+            gdprConsent: document.getElementById('g1').checked,
+            signatureData: v('f_sig').trim(),
+            signedAt: new Date().toISOString()
           })
         });
 
